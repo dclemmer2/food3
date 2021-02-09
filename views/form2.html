@@ -1,0 +1,16 @@
+<include href="views/header.html"></include>
+<body>
+<div class="container">
+    <h1>Food Order, Continued</h1>
+    <form method="post" action="summary">
+        <label>Select condiments</label><br>
+        <label><input type="checkbox" name="conds[]" value="mayonnaise"> Mayonnaise</label><br>
+        <label><input type="checkbox" name="conds[]" value="ketchup"> Ketchup</label><br>
+        <label><input type="checkbox" name="conds[]" value="mustard"> Mustard</label><br>
+        <label><input type="checkbox" name="conds[]" value="sriracha"> Sriracha</label><br>
+        <br>
+        <input type="submit" value="Place Order">
+    </form>
+</div>
+</body>
+</html>
