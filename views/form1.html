@@ -7,13 +7,10 @@
             <input type="text" name="food">
         </label><br>
         <label>Select a meal</label><br>
-
-        <label><input type="radio" name="meal" id="breakfast" value="breakfast"> Breakfast
-            </input></label><br>
-        <label><input type="radio" name="meal" id="lunch" value="lunch"> Lunch
-            </input></label><br>
-        <label><input type="radio" name="meal" id="dinner" value="dinner"> Dinner
-            </input></label><br>
+        <repeat group = "{{ @meals }}" value="{{ @meal }}">
+            <label><input type="radio" name="meal" id="{{ @meal }}" value="{{ @meal }}"> {{ucfirst(@meal) }}
+                </input></label><br>
+        </repeat>
 
         <input type="submit" value="Next >>">
     </form>
