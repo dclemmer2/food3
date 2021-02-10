@@ -2,10 +2,15 @@
 <body>
 <div class="container">
     <h1>Food Order</h1>
-    <form method="post" action="order2">
+    <form method="post" action="#">
         <label>What would you like to order?
             <input type="text" name="food">
+            <check if="{{ isset(@errors['food']) }}">
+                {{ @errors['food'] }}
+            </check>
         </label><br>
+
+        <!-- get meal -->
         <label>Select a meal</label><br>
         <repeat group = "{{ @meals }}" value="{{ @meal }}">
             <label><input type="radio" name="meal" id="{{ @meal }}" value="{{ @meal }}"> {{ucfirst(@meal) }}
