@@ -10,17 +10,20 @@ session_start();
 
 //Require files
 require_once('vendor/autoload.php');
-require_once('model/data-layer.php');
-require_once('model/validate.php');
+//require_once('model/data-layer.php');
+//require_once('model/validate.php');
 
 //Create an instance of the Base class
 $f3 = Base::instance();
+$validator = new Validate();
+$dataLayer = new DataLayer();
 
 //Turn on Fat-Free error reporting
 $f3->set('DEBUG', 3);
 
 //Define a default route (home page)
 $f3->route('GET /', function () {
+    //Display a view
     $view = new Template();
     echo $view->render('views/home.html');
 });
@@ -29,6 +32,8 @@ $f3->route('GET /', function () {
 $f3->route('GET|POST /order', function ($f3) {
     //Add data from form1 to Session array
     //var_dump($_POST);
+    global $validator;
+    global $dataLayer;
 
     //If the form has been submitted
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -37,7 +42,7 @@ $f3->route('GET|POST /order', function ($f3) {
         $userMeal = $_POST['meal'];
 
         //if the data is valid -> add to session
-        if (validFood($userFood)) {
+        if ($validator->validFood($userFood)) {
             $_SESSION['food'] = $userFood;
         } //data is not valid -> set an error in F3 hive
         else {
@@ -46,7 +51,7 @@ $f3->route('GET|POST /order', function ($f3) {
         }
 
         //if the data is valid -> add to session
-        if (validMeal($userMeal)) {
+        if ($validator->validMeal($userMeal)) {
             $_SESSION['meal'] = $userMeal;
         } //data is not valid -> set an error in F3 hive
         else {
@@ -59,7 +64,7 @@ $f3->route('GET|POST /order', function ($f3) {
         }
     }
 
-    $f3->set('meals', getMeals());
+    $f3->set('meals', $dataLayer->getMeals());
     $f3->set('userFood', isset($userFood) ? $userFood : "");
     $f3->set('userMeal', isset($userMeal) ? $userMeal : "");
 
@@ -71,19 +76,21 @@ $f3->route('GET|POST /order', function ($f3) {
 //Define a "order2" route
 $f3->route('GET|POST /order2', function ($f3) {
 
+    global $validator;
+    global $dataLayer;
+
     //If the form has been submitted
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
         //if condiments were selected
         if (isset($_POST['conds'])) {
             //Get condiments from post array
             $userCondiments = $_POST['conds'];
 
             //if the data is valid -> add to session
-            if (validCondiments($userCondiments)) {
+            if ($validator->validCondiments($userCondiments)) {
                 $_SESSION['conds'] = implode(", ", $userCondiments);
             }
-
+            
             //data is not valid -> spoofed
             else {
                 $f3->set('errors["conds"]', "Go away");
@@ -96,7 +103,7 @@ $f3->route('GET|POST /order2', function ($f3) {
         }
     }
 
-    $f3->set('condiments', getCondiments());
+    $f3->set('condiments', $dataLayer->getCondiments());
 
     //Display a view
     $view = new Template();
