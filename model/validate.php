@@ -44,7 +44,7 @@ class Validate
 function validCondiments($selectedConds)
     {
         //Get valid condiments from data layer
-        $validConds = $this->dataLayer->getCondiments();
+        $validConds = $this->_dataLayer->getCondiments();
 
         //Check every selected condiment
         foreach ($selectedConds as $selected) {
