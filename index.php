@@ -63,6 +63,7 @@ $f3->route('GET|POST /order', function($f3) {
 
     //var_dump($_POST);
     $f3->set('meals', getMeals());
+    //Make form sticky
     $f3->set('userFood', isset($userFood) ? $userFood : "");
     $f3->set('userMeal', isset($userMeal) ? $userMeal : "");
 
