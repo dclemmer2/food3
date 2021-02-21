@@ -13,7 +13,8 @@
         <!-- get meal -->
         <label>Select a meal</label><br>
         <repeat group = "{{ @meals }}" value="{{ @meal }}">
-            <label><input type="radio" name="meal" id="{{ @meal }}" value="{{ @meal }}" <check if="{{ @meal == @userMeal }}">checked</check>> {{ucfirst(@meal) }}
+            <label><input type="radio" name="meal" id="{{ @meal }}" value="{{ @meal }}"
+                <check if="{{ @meal == @userMeal }}">checked</check>> {{ucfirst(@meal) }}
                 </input></label><br>
         </repeat>
         <check if="{{ isset(@errors['meal']) }}">

@@ -3,7 +3,6 @@
 <div class="container">
     <h1>Food Order, Continued</h1>
     <form method="post" action="#">
-        <check if="{{ @errors['conds'] }}"><span>{{ @errors['conds'] }}</span></check>
         <label>Select condiments</label><br>
         <repeat group="{{ @condiments }}" value = "{{ @condiment }}">
             <label><input type="checkbox" name="conds[]" value="{{ @condiment }}"> {{ ucfirst(@condiment) }}</label><br>
